@@ -9,15 +9,22 @@ var special = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', 
 
 // Assignment Code
 var generateBtn = document.querySelector('#generate');
+
 function generatePassword() {
+  // resets the users choice array
+  userChoices = [];
+
   var length = prompt('How long would you like your password to be? Between 8-128 characters)');
   var num = Number(length);
   if (num < 8) {
     alert('Your password cannot be less than 8 charcters long');
+    return 'Please try again';
   } else if (num > 128) {
     alert('Your password cannot be more than 128 charcters long');
+    return 'Please try again';
   } else if (isNaN(num)) {
     alert('Please enter a numerical value');
+    return 'Please try again';
   } else Number(num);
   console.log(num);
 
@@ -37,7 +44,13 @@ function generatePassword() {
     userChoices = userChoices.concat(special);
   }
 
-  return 'Generated password here';
+  var userPassword = '';
+  // for loop to run the character length selected by the user
+  for (var i = 0; i < num; i++) {
+    var randomChar = Math.floor(Math.random() * userChoices.length);
+    userPassword += userChoices[randomChar];
+  }
+  return userPassword;
 }
 
 // Write password to the #password input
